@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc); /* 渐变背景 */
+            margin: 0; /* 去掉默认边距 */
+            padding: 20px; /* 设置内边距 */
+            color: #fff; /* 文字颜色 */
+            font-family: Arial, sans-serif; /* 字体 */
+        }
+
+        h1 {
+            text-align: center; /* 标题居中 */
+            margin-bottom: 20px; /* 增加底部边距 */
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* 文字阴影效果 */
+        }
+
+        input[type="text"] {
+            width: 100px; /* 设置输入框宽度 */
+            padding: 10px; /* 增加内边距 */
+            margin: 5px; /* 增加外边距 */
+            border: none; /* 去掉边框 */
+            border-radius: 4px; /* 圆角边框 */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 添加阴影效果 */
+            transition: all 0.3s; /* 添加过渡效果 */
+        }
+
+        input[type="text"]:focus {
+            outline: none; /* 去掉聚焦边框 */
+            box-shadow: 0 0 8px rgba(0, 179, 255, 0.8); /* 聚焦时增加阴影效果 */
+        }
+
+        button {
+            padding: 10px 15px; /* 按钮内填充 */
+            background-color: #007BFF; /* 按钮背景颜色 */
+            color: white; /* 字体颜色 */
+            border: none; /* 去掉默认边框 */
+            border-radius: 4px; /* 圆角 */
+            cursor: pointer; /* 鼠标悬停时显示手型光标 */
+            transition: background-color 0.3s, transform 0.2s; /* 添加过渡效果 */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+            margin: 5px; /* 增加按钮间距 */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* 鼠标悬停时更改背景颜色 */
+            transform: translateY(-2px); /* 鼠标悬停时提升按钮 */
+        }
+
+        #result {
+            font-weight: bold; /* 结果文本加粗 */
+            margin-top: 10px; /* 增加顶部外边距 */
+        }
+
+        #resultValue {
+            border: 1px solid #007BFF; /* 边框样式 */
+            padding: 5px; /* 内填充 */
+            border-radius: 4px; /* 圆角 */
+            background-color: rgba(255, 255, 255, 0.8); /* 背景色透明化 */
+            color: #333; /* 边框内的文本颜色 */
+            margin-left: 5px; /* 左边距 */
+        }
+
+        .operation-group {
+            margin: 20px 0; /* 每组运算的上下边距 */
+        }
+
+        .operation-title {
+            font-size: 18px; /* 标题字体大小 */
+            margin-bottom: 10px; /* 标题底部边距 */
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculator</h1>
+    <div id="input-container" style="display: none; align-items: center; margin-bottom: 10px;">
+        <input type="text" id="num1" placeholder="First number">
+        <input type="text" id="num2" placeholder="Second number" style="display: inline-block;">
+    </div>
+
+    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span id="result">Result：</span>
+        <span id="resultValue">0</span>
+    </div>
+
+    <div class="operation-group">
+        <div class="operation-title">选择运算方式</div>
+        <button onclick="setOperation('+')">+</button>
+        <button onclick="setOperation('-')">-</button>
+        <button onclick="setOperation('*')">*</button>
+        <button onclick="setOperation('/')">/</button>
+        <button onclick="setOperation('power')">x²</button>
+        <button onclick="setOperation('sqrt')">√</button>
+        <button onclick="setOperation('sin')">sin</button>
+        <button onclick="setOperation('cos')">cos</button>
+        <button onclick="setOperation('tan')">tan</button>
+        <button onclick="setOperation('log')">log</button>
+        <button onclick="setOperation('mean')">Mean</button>
+        <button onclick="setOperation('abs')">Abs</button>
+    </div>
+
+    <button id="calculateButton" style="display: none;" onclick="calculate()">计算</button>
+
+    <script>
+        let currentOperation = '';
+
+        function setOperation(operation) {
+            currentOperation = operation;
+            const inputContainer = document.getElementById('input-container');
+            const num2Input = document.getElementById('num2');
+
+            if (['power', 'sqrt', 'sin', 'cos', 'tan', 'log', 'abs'].includes(operation)) {
+                num2Input.style.display = 'none';  // 隐藏第二个输入框
+            } else {
+                num2Input.style.display = 'inline-block';  // 显示两个输入框
+            }
+
+            inputContainer.style.display = 'flex'; // 显示输入框
+            document.getElementById('calculateButton').style.display = 'inline-block'; // 显示计算按钮
+        }
+
+        function calculate() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            let result;
+
+            switch (currentOperation) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    result = num2 !== 0 ? num1 / num2 : 'Error: Division by Zero';
+                    break;
+                case 'power':
+                    result = Math.pow(num1, 2);
+                    break;
+                case 'sqrt':
+                    result = Math.sqrt(num1);
+                    break;
+                case 'sin':
+                    result = Math.sin(num1 * Math.PI / 180); // 转换为弧度
+                    break;
+                case 'cos':
+                    result = Math.cos(num1 * Math.PI / 180); // 转换为弧度
+                    break;
+                case 'tan':
+                    result = Math.tan(num1 * Math.PI / 180); // 转换为弧度
+                    break;
+                case 'log':
+                    result = Math.log10(num1); // 常用对数
+                    break;
+                case 'mean':
+                    const mean = (num1 + num2) / 2;
+                    result = mean;
+                    break;
+                case 'abs':
+                    result = Math.abs(num1);
+                    break;
+                default:
+                    result = 0;
+            }
+
+            document.getElementById('resultValue').innerText = result; // 显示计算结果
+        }
+    </script>
+</body>
+</html>
