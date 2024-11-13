@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>multiplication</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc); /* 渐变背景 */
+            margin: 0; /* 去掉默认边距 */
+            padding: 20px; /* 设置内边距 */
+            color: #fff; /* 文字颜色 */
+            font-family: Arial, sans-serif; /* 字体 */
+        }
+
+        h1 {
+            text-align: center; /* 标题居中 */
+            margin-bottom: 20px; /* 增加底部边距 */
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* 文字阴影效果 */
+        }
+
+        input[type="text"] {
+            width: 100px; /* 设置输入框宽度 */
+            padding: 10px; /* 增加内边距 */
+            margin: 5px; /* 增加外边距 */
+            border: none; /* 去掉边框 */
+            border-radius: 4px; /* 圆角边框 */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 添加阴影效果 */
+            transition: all 0.3s; /* 添加过渡效果 */
+        }
+
+        input[type="text"]:focus {
+            outline: none; /* 去掉聚焦边框 */
+            box-shadow: 0 0 8px rgba(0, 179, 255, 0.8); /* 聚焦时增加阴影效果 */
+        }
+
+        button {
+            padding: 10px 15px; /* 按钮内填充 */
+            background-color: #007BFF; /* 按钮背景颜色 */
+            color: white; /* 字体颜色 */
+            border: none; /* 去掉默认边框 */
+            border-radius: 4px; /* 圆角 */
+            cursor: pointer; /* 鼠标悬停时显示手型光标 */
+            transition: background-color 0.3s, transform 0.2s; /* 添加过渡效果 */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* 鼠标悬停时更改背景颜色 */
+            transform: translateY(-2px); /* 鼠标悬停时提升按钮 */
+        }
+
+        #result {
+            font-weight: bold; /* 结果文本加粗 */
+            margin-top: 10px; /* 增加顶部外边距 */
+        }
+
+        #resultValue {
+            border: 1px solid #007BFF; /* 边框样式 */
+            padding: 5px; /* 内填充 */
+            border-radius: 4px; /* 圆角 */
+            background-color: rgba(255, 255, 255, 0.8); /* 背景色透明化 */
+            color: #333; /* 边框内的文本颜色 */
+            margin-left: 5px; /* 左边距 */
+        }
+    </style>
+</head>
+<body>
+    <h1>Multiplication</h1>
+    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <input type="text" id="num1" placeholder="First number"> *
+        <input type="text" id="num2" placeholder="Second number">
+    </div>
+
+    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span id="result">Result：</span>
+        <span id="resultValue">0</span>
+    </div>
+    
+    <button onclick="calculate()">Calculate</button>
+
+    <script>
+        function calculate() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+
+            const multiplication = num1 * num2;
+
+            document.getElementById('resultValue').innerText = multiplication; // 显示计算结果
+        }
+    </script>
+</body>
+</html>
